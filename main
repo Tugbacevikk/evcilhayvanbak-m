@@ -1,0 +1,333 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+char isim[50];
+int durum[8]; /* Dizi, uyku, tokluk, susuzluk, sevgi, sosyallesme, tuvalet, saglik, hijyen*/
+
+/* Evcil hayvanin durumunu guncelleyen fonksiyon */
+void durumuGuncelle() {
+    for (int i = 0; i < 8; i++) {
+        durum[i] -= 1;
+
+        /* Değerleri 0 ile 10 arasında sınırla*/
+        if (durum[i] < 0) {
+            durum[i] = 0;
+        }
+        if (durum[i] > 10) {
+            durum[i] = 10;
+        }
+    }
+
+   /* Eğer sağlık, hijyen, sevgi, uyku, tokluk değerlerinden biri  0 ise yada sussuzluk veya tuvalet değeri 10 ise evcil hayvan ölmüştür*/
+    if (durum[6] == 0 || durum[7] == 0 || durum[3] == 0 || durum[0] == 0 || durum[1] == 0 || durum[5] == 10 || durum[2] == 10)  {
+        printf("%s sanal evvcil hayvanınız oldu oyunu kaybettiniz ...\n", isim);
+        exit(0); // Programdan çıkış yap
+    }
+}
+
+/* Evcil hayvanin durumunu ekrana basan fonksiyon */
+void evcilHayvanDurumu() {
+    printf("------ %s'in Durumu ------\n", isim);
+    printf("Uyku: %d\n", durum[0]);
+    printf("Tokluk: %d\n", durum[1]);
+    printf("Susuzluk: %d\n", durum[2]);
+    printf("Sevgi: %d\n", durum[3]);
+    printf("Sosyallesme: %d\n", durum[4]);
+    printf("Tuvalet: %d\n", durum[5]);
+    printf("Saglik: %d\n", durum[6]);
+    printf("Hijyen: %d\n", durum[7]);
+    printf("------------------------\n");
+}
+
+/* Evcil hayvana yemek veren fonksiyon */
+void yemekVer() {
+    int secim;
+    printf("Lutfen evcil hayvaniniza vermek istediniz yemegi seciniz:\n");
+    printf("1. Yas mama\n");
+    printf("2. Kuru mama\n");
+    printf("3. Vitamin ver\n");
+
+    scanf("%d", &secim);
+
+    switch (secim) {
+        case 1:
+            printf("%s yas mama yiyor...\n", isim);
+            durum[1] += 2; /*tokluk*/
+            durum[2] -= 1; /*susuzluk*/
+            durum[7] -= 1; /*hijyen*/
+            durum[6] += 1; /*saglık*/
+            break;
+        case 2:
+            printf("%s kuru mama yiyor...\n", isim);
+            durum[1] += 2;
+            durum[2] -= 1;
+            durum[7] -= 1;
+            durum[6] += 1;
+            break;
+        case 3:
+            printf("%s vitamini yiyor...\n", isim);
+            durum[1] += 1;
+            durum[2] -= 1;
+            durum[7] -= 1;
+            durum[6] += 3;
+            break;
+        default:
+            printf("Gecersiz secim Lutfen tekrar deneyiniz.\n");
+            return;
+    }
+}
+
+/* Evcil hayvana su veren fonksiyon */
+void suVer() {
+    printf("%s  iciyor...\n", isim);
+    durum[2] += 2;
+
+    int secim;
+    printf("Lutfen evcil hayvaniniza vermek istediniz icecegi seciniz:\n");
+    printf("1. Su\n");
+    printf("2. iksir\n");
+    printf("3. Meyve suyu\n");
+
+    scanf("%d", &secim);
+
+    switch (secim) {
+        case 1:
+            printf("%s icecek iciyor...\n", isim);
+            durum[2] -= 3; /*susuzluk*/
+            durum[5] += 1; /*tuvalet*/
+            durum[6] += 1; /*sağlık*/
+            break;
+        case 2:
+            printf("%s iksir iciyor..\n", isim);
+            durum[1] += 2; /*tokluk*/
+            durum[2] += 1; /*susuzluk*/
+            durum[7] -= 1; /*hijyen*/
+            durum[6] += 3; /*saglık*/
+            break;
+        case 3:
+            printf("%s meyve suyu iciyor...\n", isim);
+            durum[1] += 1; /*uyku*/
+            durum[2] -= 1; /*susuzluk*/
+            durum[7] -= 1; /* hijyen*/
+            durum[6] += 2;
+            break;
+        default:
+            printf("Gecersiz secim Lutfen tekrar deneyiniz.\n");
+            return;
+    }
+}
+
+/* Evcil hayvanla oyun oynayan fonksiyon */
+void oyunOyna() {
+    int secim;
+    printf("Lutfen evcil hayvaninizla yapmak istediginiz etkinligi seciniz :\n");
+    printf("1. Yuruyuse cikmak\n");
+    printf("2. Top oynamak\n");
+    printf("3. Evcil hayvanini taramak\n");
+
+    scanf("%d", &secim);
+
+    switch (secim) {
+        case 1:
+            printf("%s yuruyuse cikti...\n", isim);
+            durum[1] -= 2;
+            durum[2] += 1;
+            durum[7] -= 2;
+            durum[6] += 1;
+            durum[3] += 2;
+            break;
+        case 2:
+            printf("%s top oynuyor...\n", isim);
+            durum[1] -= 1;
+            durum[2] -= 1;
+            durum[7] -= 1;
+            durum[6] += 1;
+            durum[3] += 2;
+            break;
+        case 3:
+            printf("%s taraniyor\n", isim);
+            durum[3] += 2;
+            durum[7] += 1;
+            durum[6] += 3;
+            break;
+        default:
+            printf("Gecersiz secim Lutfen tekrar deneyiniz.\n");
+            return;
+    }
+}
+
+/* Evcil hayvanı uyandıran fonksiyon */
+void uyandir() {
+    int secim;
+    printf("Lutfen evcil hayvaninizla yapmak istediginiz etkinligi seciniz :\n");
+    printf("1. 8 saat uyu \n");
+    printf("2. 3 saat uyu \n");
+    printf("3. 5 dakika kestir \n");
+
+    scanf("%d", &secim);
+
+    switch (secim) {
+        case 1:
+            printf("%s 8 saat uyudu ...\n", isim);
+            durum[0] += 4;
+            durum[7] += 3;
+            durum[6] += 2;
+            break;
+        case 2:
+            printf("%s 3 saat uyudu...\n", isim);
+            durum[0] += 2;
+            durum[7] += 2;
+            durum[6] += 1;
+
+            break;
+        case 3:
+            printf("%s 5 dakika kestirdi\n", isim);
+            durum[0] += 1;
+
+            break;
+        default:
+            printf("Gecersiz secim Lutfen tekrar deneyiniz.\n");
+            return;
+    }
+}
+
+
+/* Temizleme fonksiyonu */
+void temizle() {
+    int secim;
+    printf("Lutfen evcil hayvaninizla yapmak istediginiz etkinligi seciniz :\n");
+    printf("1. kumunu temizle \n");
+    printf("2. dislerini fircala \n");
+    printf("3. dus aldir \n");
+
+    scanf("%d", &secim);
+
+    switch (secim) {
+        case 1:
+            printf("%s kumunu temizlendi ...\n", isim);
+             durum[7] += 1;
+             durum[6] += 1;
+             durum[3] += 1;
+             durum[4] += 1;
+            break;
+        case 2:
+            printf("%s dislerini fircaladi...\n", isim);
+             durum[7] += 2;
+             durum[6] += 2;
+             durum[3] += 1;
+             durum[4] += 1;
+
+            break;
+        case 3:
+            printf("%s dus aldi\n", isim);
+
+             durum[7] += 4;
+             durum[6] += 4;
+             durum[3] += 1;
+             durum[4] += 1;
+            break;
+        default:
+            printf("Gecersiz secim Lutfen tekrar deneyiniz.\n");
+            return;
+    }
+}
+
+
+
+
+/* Tuvalet fonksiyonu */
+void tuvaletecikar() {
+    printf("%s'i tuvalete cikariliyor...\n", isim);
+    durum[5] = 0;
+    durum[8] += 2;
+}
+
+/* Veteriner fonksiyonu */
+void veteriner() {
+    printf("%s'i veteriner kontrolune goturuluyor...\n", isim);
+    durum[6] = 10; // Sağlık maksimum
+    durum[7] = 10; // Hijyen maksimum
+    durum[4] = 10; // Sosyallesme maksimum
+}
+
+/* Ana menüyü gösteren fonksiyon */
+void anaMenu() {
+    printf("%s'in Dunyasina Hosgeldiniz\n", isim);
+    printf("1. Durumu Goster\n");
+    printf("2. Yemek Ver\n");
+    printf("3. Su Ver\n");
+    printf("4. Oyun Oyna\n");
+    printf("5. Uyandir\n");
+    printf("6. Temizle\n");
+    printf("7. Veterinere Gotur\n");
+    printf("8. Tuvalete cikar\n");
+    printf("0. Oyundan cik\n");
+}
+
+/* Programın secim yapacagı fonksiyon */
+int main() {
+    printf("Evcil hayvaniniza bir isim secin: ");
+    scanf("%s", isim);
+
+    // durum dizisine başlangıç değerlerini atayalım
+    for (int i = 0; i < 8; i++) {
+        durum[i] = 5; // başlangıç değeri olarak 5
+    }
+
+    int secim;
+    do {
+        anaMenu();
+        printf("Yapmak istediginiz islemi seciniz: ");
+        scanf("%d", &secim);
+
+        switch (secim) {
+            case 1:
+                durumuGuncelle();
+                evcilHayvanDurumu();
+                break;
+            case 2:
+                yemekVer();
+                durumuGuncelle();
+                evcilHayvanDurumu();
+                break;
+            case 3:
+                suVer();
+                durumuGuncelle();
+                evcilHayvanDurumu();
+                break;
+            case 4:
+                oyunOyna();
+                durumuGuncelle();
+                evcilHayvanDurumu();
+                break;
+            case 5:
+                uyandir();
+                durumuGuncelle();
+                evcilHayvanDurumu();
+                break;
+            case 6:
+                temizle();
+                evcilHayvanDurumu();
+                break;
+            case 7:
+                veteriner();
+                                durumuGuncelle();
+                evcilHayvanDurumu();
+                break;
+            case 8:
+                tuvaletecikar();
+                durumuGuncelle();
+                evcilHayvanDurumu();
+                break;
+            case 0:
+                printf("Oyundan cikiliyor...\n");
+                break;
+            default:
+                printf("Gecersiz secim lutfen tekrar deneyiniz.\n");
+        }
+
+    } while (secim != 0);
+
+    return 0;
+}
