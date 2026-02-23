@@ -48,7 +48,7 @@ Kritik seviyeler kontrol edilir
 
 Kaybetme koşulları değerlendirilir
 
-Kaybetme Koşulları
+## Kaybetme Koşulları
 
 Aşağıdaki durumlardan biri gerçekleştiğinde oyun sona erer:
 
