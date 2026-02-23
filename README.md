@@ -1,149 +1,149 @@
-# evcilhayvanbakim
-# 🐾 Sanal Evcil Hayvan Oyunu (C)
+## Virtual Pet Care Simulator (C)
 
-Bu proje, **C programlama dili** kullanılarak geliştirilmiş, **menü tabanlı bir sanal evcil hayvan simülasyonudur**.  
-Oyuncu, evcil hayvanının temel ihtiyaçlarını karşılayarak onun hayatta kalmasını sağlamaya çalışır.
+Bu proje C programlama dili kullanılarak geliştirilmiş konsol tabanlı bir sanal evcil hayvan bakım simülasyonudur. Oyuncu bir evcil hayvana isim verir ve onun temel ihtiyaçlarını yöneterek hayatta kalmasını sağlamaya çalışır.
 
----
+Proje, durum yönetimi (state management) ve menü tabanlı kullanıcı etkileşimi üzerine kurulmuştur.
 
-## 🎯 Projenin Amacı
+## Proje Amacı
 
 Bu projenin amacı:
 
-- Dizilerle veri yönetimi
-- Fonksiyon kullanımı
-- Menü tabanlı kullanıcı etkileşimi
-- Koşul ifadeleri (`if`, `switch`)
-- Program akışı ve durum kontrolü
+C dili ile fonksiyon ve dizi kullanımı pratiği yapmak
 
-konularını uygulamalı olarak öğretmektir.
+Menü tabanlı bir sistem tasarlamak
 
----
+Koşul ifadeleri ve kontrol akışını yönetmek
 
-## 🐶 Oyun Mantığı
+Durum temelli bir simülasyon modeli oluşturmak
 
-Oyuncu bir **sanal evcil hayvan** sahiplenir ve ona bir isim verir.  
-Evcil hayvanın çeşitli **durum değerleri** vardır ve bu değerler zamanla azalır.
+Basit bir oyun döngüsü (game loop) kurmak
 
-Amaç:
-> Evcil hayvanın **ölmeden** bakımını yapmak ve ihtiyaçlarını karşılamaktır.
+## Oyun Mekaniği
 
----
+Oyuncu, evcil hayvanın aşağıdaki durum değerlerini yönetir:
 
-## 📊 Evcil Hayvan Durumları
+Uyku
 
-Durumlar tek bir dizi içinde tutulur:
+Tokluk
 
-| İndeks | Durum |
-|------|------|
-| 0 | Uyku |
-| 1 | Tokluk |
-| 2 | Susuzluk |
-| 3 | Sevgi |
-| 4 | Sosyalleşme |
-| 5 | Tuvalet |
-| 6 | Sağlık |
-| 7 | Hijyen |
+Susuzluk
 
-Tüm değerler **0 – 10** aralığında tutulur.
+Sevgi
 
----
+Sosyalleşme
 
-## ☠️ Oyun Kaybetme Koşulları
+Tuvalet
 
-Aşağıdaki durumlardan **biri gerçekleşirse oyun sona erer**:
+Sağlık
 
-- Sağlık = 0
-- Hijyen = 0
-- Sevgi = 0
-- Uyku = 0
-- Tokluk = 0
-- Susuzluk = 10
-- Tuvalet = 10
+Hijyen
 
----
+Tüm değerler 0–10 aralığında tutulur ve yapılan işlemlere göre artar veya azalır.
 
-## 🧩 Oyun Menüsü ve Fonksiyonlar
+Her işlem sonrasında:
 
-### 📋 Ana Menü Seçenekleri
+Durum değerleri otomatik olarak güncellenir
 
-1. Durumu Göster  
-2. Yemek Ver  
-3. Su Ver  
-4. Oyun Oyna  
-5. Uyandır  
-6. Temizle  
-7. Veterinere Götür  
-8. Tuvalete Çıkar  
-0. Oyundan Çık  
+Kritik seviyeler kontrol edilir
 
----
+Kaybetme koşulları değerlendirilir
 
-### 🍽️ Yemek Verme
-- Yaş mama
-- Kuru mama
-- Vitamin
+Kaybetme Koşulları
 
-Tokluk, sağlık ve hijyen değerlerini etkiler.
+Aşağıdaki durumlardan biri gerçekleştiğinde oyun sona erer:
 
----
+Sağlık = 0
 
-### 🚰 Su Verme
-- Su
-- İksir
-- Meyve suyu
+Hijyen = 0
 
-Susuzluk, sağlık ve tuvalet değerlerini etkiler.
+Sevgi = 0
 
----
+Uyku = 0
 
-### 🎾 Oyun Oynama
-- Yürüyüş
-- Top oyunu
-- Tarama
+Tokluk = 0
 
-Sevgi, sağlık ve hijyen üzerinde etkilidir.
+Susuzluk = 10
 
----
+Tuvalet = 10
 
-### 😴 Uyku
-- 8 saat uyuma
-- 3 saat uyuma
-- Kısa kestirme
+Bu sistem, oyuncuyu dengeli bir bakım yapmaya zorlayan bir kaynak yönetim mekanizması oluşturur.
 
-Uyku ve sağlık değerlerini artırır.
+## Oyun İçeriği
 
----
+Ana menü üzerinden yapılabilecek işlemler:
 
-### 🧼 Temizlik
-- Kum temizleme
-- Diş fırçalama
-- Duş aldırma
+Durumu göster
 
-Hijyen ve sağlık artar.
+Yemek ver
 
----
+Su ver
 
-### 🏥 Veteriner
-- Sağlık, hijyen ve sosyalleşme maksimuma çıkar.
+Oyun oynat
 
----
+Uyandır
 
-## 🔄 Durum Güncelleme Sistemi
+Temizle
 
-Her işlemden sonra:
+Veterinere götür
 
-- Tüm durumlar **1 azalır**
-- Değerler **0–10 arasında sınırlandırılır**
-- Ölüm koşulları kontrol edilir
+Tuvalete çıkar
 
-Bu sistem oyuna **zorluk ve gerçekçilik** katar.
+Oyundan çık
 
----
+Her işlem, ilgili durum değerlerini etkileyen ayrı fonksiyonlar tarafından yönetilir.
 
-## 🛠️ Derleme ve Çalıştırma
+## Teknik Detaylar
 
-### Linux / macOS / WSL
-```bash
-gcc evcilhayvan.c -o evcilhayvan
-./evcilhayvan
+Program C dili ile yazılmıştır.
+
+Durum değerleri bir dizi (int durum[8]) ile tutulmaktadır.
+
+Her işlem sonrasında merkezi bir güncelleme fonksiyonu çağrılmaktadır.
+
+Oyun, do-while döngüsü ile sürekli çalışan bir yapıdadır.
+
+Program sonlandırma koşulları exit(0) ile yönetilmektedir.
+
+Derleme ve Çalıştırma
+
+Linux / macOS / WSL:
+
+gcc evcilhayvan.c -o pet
+./pet
+
+Windows (MinGW):
+
+gcc evcilhayvan.c -o pet.exe
+pet.exe
+
+## Geliştirme Önerileri
+
+Global değişkenleri struct yapısına dönüştürme
+
+Enum veya define ile durum indekslerini daha okunabilir hale getirme
+
+Kullanıcı giriş doğrulama mekanizması ekleme
+
+Kaydet / yükle sistemi ekleme
+
+Modüler dosya yapısına geçiş
+
+## Öğrenim Kazanımları
+
+Bu proje ile:
+
+Menü tasarımı
+
+Durum tabanlı simülasyon
+
+Fonksiyonel program akışı
+
+Kontrol yapıları
+
+Basit oyun mantığı oluşturma
+
+konularında pratik deneyim kazanılmıştır.
+
+## Geliştirici
+
+Tuğba Çevik
